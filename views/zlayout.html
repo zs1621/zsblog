@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta content = "nodejs 多带点">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/themes/humanity/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin-layout.css" >
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/prettify.css">
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js" ></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js" ></script>
+    <script type="text/javascript" src="/js/knock-out.js"></script>
+    <script type="text/javascript" src="/js/code-prettify.js"></script>
+    <script type="text/javascript">
+            $(function(){
+                $("#sidebar,#main").height($(window).height()-55-38);
+            })
+    </script>
+    
+        
+</head>
+<body>
+	<header id="header">
+		<hgroup>
+            <h1 class="site_title"><a href="/admin">Crzzz</a></h1>
+            <h2 class="section_title"></h2><div class="btn_view_site"><a href="/">网站首页</a></div>
+        <hgroup>
+	</header><!-- end of header bar -->
+    <section id="secondary_bar">
+        <div class="user">
+            <p><%= user.name %></p>
+            <a class="logout_user" href="/logout" title="注销">Logout</a>
+        </div>
+        <div class="breadcrumbs_container">
+            
+    </section>
+
+    <aside id="sidebar" class="column">
+        <form class="quick_search">
+            <input type="text" value="Quick Search" onFocus="if(!this._haschanged){this.value=''}; this._haschanged=true;">
+        <form>
+        <hr/>
+        <h3><a href="/admin/article/manage">文章管理</a></h3>
+            <ul class="toggle">
+                <li class="icn_new_article"><a href="/admin/article/create">发布文章</a></li>
+                <li class="icn_edit_article"><a href="/admin/article/operate_article">管理文章</a></li>
+            </ul>
+
+        <h3><a href="/admin/category/manage">分类管理</a></h3>
+        <h3><a href="/admin/tag/manage">标签管理</a></h3>
+        <h3><a href="/admin/add_links">添加链接</a><h3>
+    </aside>
+
+    <div id="main" class="column">
+        <%- body %>
+    </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<ul class="tags">
+<% for(var i=0; i< tags.length; i++) { %>
+	<% if(tags[i].is_selected == true) { %>
+		<span class="tag_selectable tag_select" tag_id="<%= tags[i]._id %>"> <%= tags[i].name %>
+		</span>
+	<% } else { %>
+		<span class="tag_selectable" tag_id="<%= tags[i]._id %>"> <%= tags[i].name %>
+		</span>
+	<% } %>
+<% } %>
+</ul>

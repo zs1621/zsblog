@@ -1,0 +1,21 @@
+<div id="sidebar">
+	<%- include ../sidebar %>
+</div>
+<div id="content">
+	<div class = "panel">
+		<div class="header">
+			<ul class="breadcrumb">
+				<li>
+					<a href="/">主页</a>
+					<span class="divider">/</span>
+				</li>
+				<li class="active">
+					<a href="/category/<%= id %>"><%= name %></a>
+				</li>
+			</ul>
+		</div>
+		<div class="inner">
+			<%- include ../article/list %>
+		</div>
+	</div>	
+</div>

@@ -1,0 +1,68 @@
+<div id="sidebar">
+	<div class="panel">
+		<div class="header">
+			<span class="col_fade">关于</span>
+		</div>
+		<div class="inner">
+			<p>Test BLOG</p>
+			<ul>
+				<li>博客基于Nodejs Express</li>
+				<li>使用markdown编辑器</li>
+				<li>评论模块使用友言第三方社会评论</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div id="content">
+	<div class="panel">
+		<div class="header">
+			<ul class="breadcrumb">
+				<li>
+					<a href="/">首页</a>
+					<span class="divider">/</span>
+				</li>
+				<li class="active">登陆</li>
+			</ul>
+		</div>
+		<div class="inner">
+			<div class="sep10"></div>
+			<div class="sep10"></div>
+			<% if(error) {%>
+								<div class="alert alert-error">
+									<strong><%= error %></strong><a class="closed pull-right" style="cursor: pointer" >X</a>
+								</div>
+							<% } %>
+			<form id="login" class="form-horizontal" method="post">
+					<div class = "control-group">
+						<label class='control-label' for="nickname">
+						昵称</label>
+						<div class="controls">
+							<input id="nick" class="input-xlarge" type="text" name="nickname" value="">
+						</div>
+					</div>
+					<div class="control-group">	
+						<label class="control-label" for="password">
+						密码</label>
+						<div class="controls">
+							<input type="password" id="password" class="input-xlarge" name="password" value="">
+							
+							<p class="help-block">
+								<a id="find-pass"  href="/find_pass">忘记密码</a>
+							</p>
+						</div>
+					</div>
+					<div class="form-actions">
+						<button id="btn" class="btn btn-primary" type="submit">登陆</button>
+					</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+$(document).ready(function(){
+	$(".closed").live('click',function(){
+		$(this).closest('div').hide();
+	});
+})
+</script>

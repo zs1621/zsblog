@@ -1,0 +1,7 @@
+<% for(var j=0; j< categories.length; j++) { %>
+	<% if( categories[j].is_selected == true) {%>
+	<option value="<%=categories[j]._id %>" selected="selected" ><%= categories[j].content %></option>
+	<% } else {%>
+	<option value="<%=categories[j]._id%>"><%=categories[j].content%></option>	
+	<% } %>
+<% } %>

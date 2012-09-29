@@ -1,0 +1,12 @@
+<tr>
+	<% for(var i=1;i<articles.length; i++){ %>
+		<td><input type="radio"></td>
+		<td><%= articles[i].title %></td>
+		<td><%= articles[i].category.content %></td>
+		<td><%= articles[i].createTime %></td>
+		<td>
+		<a href='/admin/article/'+<%= articles[i]._id %>+'/edit'><img src="img/icn/edit.png" title="Edit"></a>
+		<a href='#' id="article_<%= articles[i]._id %>" class="delete"><img src="img/delete.png"></a>
+		</td>
+	<%}%>
+</tr>

@@ -1,0 +1,121 @@
+<div id="category" style="width:600px;">
+<ul class="categoryList ui-sortable">
+	<% for(var i=0;i<categories.length;i++) { %>
+	<li id="category-<%= categories[i]._id %>" class="category" >
+		<div class="text"><%= categories[i].content %></div>
+		<div class="actions">
+			<a href="#" class="edit">Edit</a>
+			<a href="#" class="delete">Delete</a>
+		</div>
+	</li>
+	<% } %>
+	
+</ul>
+
+<a id="addButton" class="green-button" href="#">创建目录</a>
+
+
+
+<div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable" style="display:none;z-index: 1002;outline:0px none; height:143px; width:300px; top:183.5px; left:540px;" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-dialog-confirm">
+	<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" unselectable="on" style="-moz-user-select:none">
+    	<span id="ui-dialog-title-dialog-confirm" class="ui-dialog-title" unselectable="on" style="-moz-user-select:none;">删除此分类</span>
+        <a class="ui-dialog-titlebar-close ui-corner-all" href="#" role="button" unselectable="on" style="-moz-user-select:none;">
+        	<span class="ui-icon ui-icon-closethick" unselectable="on" style="-moz-user-select: none;">关闭</span>
+        </a>
+    </div>
+     <div id="dialog-confirm" class="ui-dialog-content ui-widget-content" style="display: block; width:auto; min-height:0px; height:18px;">确定删除这个分类?</div> 
+     <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+     	<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="button" role="button" aria-disabled="false">
+        	<span class="ui-button-text">删除</span>
+        </button>
+        <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="button" role="button" aria-disabled="false">
+        	<span class="ui-button-text">取消</span>
+        </button>
+     </div>
+</div>
+</div> 
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var currentITEM;
+        //点击编辑会会把点击的当前项“id"提取出来
+        $('.category a').live('click', function(e){
+            currentITEM = $(this).closest('.category');//给currentITEM赋值
+            currentITEM.data('id',currentITEM.attr('id').replace('category-',''));
+            //alert($(l)===? 1:0);
+        
+            e.preventDefault();
+        })
+        //点击 delete 弹出对话框
+        $('.category a.delete').live('click', function(){
+            $("#dialog-confirm").dialog('open');
+            });
+        $("#dialog-confirm").dialog({
+            resizable:false,
+            height:130,
+            modal: true,
+            autoOpen:false,
+            buttons:{
+                'Delete item':function(){
+                    $.get('/admin/category/delete',{'id':currentITEM.data('id')},function(msg){ alert(msg.msg);if(msg=='ok'){currentITEM.fadeOut('fast');} 
+                    });
+                    $(this).dialog('close');
+                },
+                Cancel:function(){
+                    $(this).dialog('close');
+                }
+            }
+        });
+        
+        //点击编辑后会把原来有的内容储存在新出现的input框内，并在此内部append 输入框  保存button 和取消button
+        $('.category a.edit').live('click',function(){
+            var container = currentITEM.find('.text');
+            if(!currentITEM.data('origText')){
+                currentITEM.data('origText', container.text());
+            }else{
+                return false;
+            }
+            
+            $('<input type="text">').val(container.text()).appendTo(container.empty());
+            container.append(
+                '<div class="editcategory">'+
+                '<a class="saveChanges" href="">Save</a> or <a class="discardChanges" href="">Cancel</a>'+
+                '</div>'
+            );
+        
+        });
+        
+        //取消编辑
+        $('.category a.discardChanges').live('click', function(){
+            currentITEM.find('.text')
+                       .text(currentITEM.data('origText'))
+                       .end()
+                       .removeData('origText'); 
+        });
+        
+        //编辑保存
+        $('.category a.saveChanges').live('click', function(){
+            var text = currentITEM.find("input[type=text]").val();
+            $.get('/admin/category/edit',{'id': currentITEM.data('id'), 'text':text},function(msg){
+                currentITEM.removeData('origText')
+                                    .find(".text")
+                                    .text(msg.content);
+                });
+        
+            
+        });
+        
+        //创建目录
+        $("#addButton").click(function(){
+            
+            $.get('/admin/category/createnew',{'text':'请双击在此编辑你的新目录'}, function(msg){
+                
+                $(msg).hide().appendTo('.categoryList').fadeIn();   
+            });
+            
+            e.preventDefault(); 
+        })
+    
+    })
+</script>   
+    

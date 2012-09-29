@@ -1,0 +1,99 @@
+<article class = "module width_full">
+	<header>
+		<h3 class="tabs_involed">文章管理</h3>
+			<ul class="tabs">
+					选择类别:
+					<select data-bind="options: availableCategories,
+														 optionsCaption:'ALL',
+														 optionsText: 'content',
+														 value: selectedCategory,
+														 optionsValue: '_id'" id="selectCate">
+					</select>
+
+			</ul>
+	</header>
+
+	<div class = "tab_container">
+		<div id = "tab1" class="tab_content" style="display: block;">
+			<table class="tablesorter" cellspacing ="0 ">
+				<thead>
+					<tr>
+						<th class = "header"></th>
+						<th class ="header headerSortDown">标题</th>
+						<th class="header">创建时间</th>
+						<th class="header">操作</th>
+					</tr>
+				</thead>
+				<tbody id ="data_content" data-bind="template:{ name: 'article-template', foreach: data}"></tbody>
+			</table>
+		</div>
+	</div>	
+</article>
+
+<script type="text/html" id="article-template">
+	<tr>
+	<td><input type="radio"></td>
+	<td data-bind ="text: title"></td>
+	<td data-bind = "text: publishtime"></td>
+	<td>
+	<a data-bind="attr:{ href: '/admin/article/'+ _id+'/edit'}"><img src = "img/edit.png" title = "Edit"/></a>&nbsp;&nbsp;
+	<input type="image" data-bind="click: $parent.articleDel" src = "img/delete.png" title="Delete"></td>
+	</tr>
+</script>
+<script type="text/javascript">
+$(function(){
+	var param = {};
+	param.opt = "get_category";
+	$.post('/admin/article/operate_article', param, function(data){
+		load(data);
+	},"JSON");
+	function load(data){
+		var categories = ko.observableArray(data);
+		var CategoriesViewModel = {
+			availableCategories: categories,
+			selectedCategory: ko.observable()
+		}
+		ko.applyBindings(CategoriesViewModel,$("#selectCate")[0]);
+	}
+	
+
+});
+	
+</script>
+<script>
+ 	$(function(){
+ 		var param = {};
+ 		param.opr = "get_all_articles";
+		$.post('/admin/article/operate_article', param, function(data){
+ 			init(data);
+ 		},"JSON");
+ 	$("select").change(function(){
+ 		var selectoption =  $("select option:selected").val();
+ 		if(selectoption == ''){
+			param.opr = "get_all_articles";
+			
+ 		}else{
+ 			param.id = selectoption;
+ 			param.opr = "get_articles"
+ 		}
+ 		$.post('/admin/article/operate_article',param, function(data){
+ 			init(data);
+ 		},"JSON");
+ 	})
+
+ 	function init(data){
+ 		var ay = ko.observableArray(data);
+ 		var viewModel = {
+ 			data: ay,
+			articleDel: function(article) {
+ 				if(confirm("确定要删除吗?")){
+ 					$.post('/admin/article/'+article['_id']+'/delete', {id:article['_id']}, function(msg){
+ 						ay.remove(article);
+ 					});
+ 				}
+ 			}
+ 		}
+ 		ko.applyBindings(viewModel,$("#data_content")[0]);
+ 	}	
+ 	});
+ </script>

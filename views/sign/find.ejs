@@ -1,0 +1,58 @@
+<div id="sidebar">
+	<div class="panel">
+		<div class="header">
+			<span class="col_fade">关于</span>
+		</div>
+		<div class="inner">
+			<p>Test BLOG</p>
+			<ul>
+				<li>博客基于nodejs expressjs</li>
+				<li>使用markdown编辑器</li>
+				<li>评论模块使用贝米第三方社会评论</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div id="content">
+	<div class="panel">
+		<div class="header">
+			<ul class="breadcrumb">
+				<li>
+					<a href="/">首页</a>
+					<span class="divider">/</span>
+				</li>
+				<li class="active">找回密码</li>
+			</ul>
+		</div>
+		<div class="inner">
+			<div class="sep10"></div>
+			<div class="sep10"></div>
+			<% if(error) {%>
+								<div class="alert alert-error">
+									<strong><%= error %></strong><a class="closed pull-right" style="cursor: pointer">X</a>
+								</div>
+							<% } %>
+				<form id="find_pass" class="form-horizontal" method="post"> 		
+					<div class = "control-group" id="smail">
+						<label class='control-label' for="mail">
+						邮箱:</label>
+						<div class="controls">
+							<input id="mail" class="input-xlarge" type="text" name="mail" value="">
+						</div>
+					</div>
+				
+					<div class="form-actions" id="saction">
+						<button id="sbtn" class="btn btn-primary" type="submit">提交</button>
+					</div>
+				</form>
+		</div>
+	</div>
+</div>
+<script>
+$(document).ready(function(){
+	$(".closed").live('click',function(){
+		$(this).closest('div').hide();
+	});
+
+})
+</script>

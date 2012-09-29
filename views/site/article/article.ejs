@@ -1,0 +1,64 @@
+<div id="sidebar">
+	<%- include ../sidebar %>
+</div>
+<div id="content">
+	<div class="panel">
+		<div class="header">
+			<ul class="breadcrumb">
+				<li>
+					<a href="/">主页</a>
+					<span class="divider">/</span>
+					<% if(user) {%>
+					<li class="pull-right"><a href="/admin/article/<%= article._id %>/edit">编辑</a><li>
+					<%　} %>
+				</li>
+				<li class="active">
+					<%= title %>
+				</li>
+			</ul>
+		</div>
+		<div class="inner">
+			<div class="article_content">
+				<h3><p><%= article.title %></p></h3>
+				<p >
+					<% var t = article.publishtime; var tm = t.getMinutes() < 10? '0'+t.getMinutes() : t.getMinutes();var tyue = t.getMonth() + 1;
+					var time = t.getFullYear()+'-'+tyue+'-' + t.getDay()+ '&nbsp;'+ t.getHours() +':'+ tm ;%>
+					<span class="col_fade pull-left"><%= time %>&nbsp;&nbsp;&nbsp;views:<%= article.visitCount %>  
+						<% if(article.tag.name){ %>
+							<span class="col_fade>Tag:</span>
+							<span class="tag-in-article"><a href="/tag/<%= article.tag._id %>"><%= article.tag.name %></a></span>
+						<% } else if(article.tag.length > 0) { %>
+							<span class="col_fade">Tag:</span>
+							<% for(var i = 0; i < article.tag.length; i++) { %>
+							<span class="tag-in-article" id="<%= article.tag[i]._id %>">
+								<a href="/tag/<%= article.tag[i]._id %>"><%= article.tag[i].name %></a>
+							</span>
+							<% } %>
+						<% } %>
+					</span>
+					<span class="pull-right" style="color:#1BA1E6">
+ 						<a class="btn btn-mini btn-primary" href="#uyan_frame"><em>评论-></em></a>
+ 					</span>
+				</p>
+				<br/>
+				<br/>
+				<div class="articlebody">
+				<p class="artice">
+					<%- content %>
+				</p>
+				</div>
+			</div>
+		</div>	
+	</div>
+	<div class="panel">
+		<div class="inner">
+			<!-- UY BEGIN -->
+			<div id="uyan_frame"></div>
+			<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=0" async=""></script>
+			<!-- UY END -->
+			</div>
+		</div>
+	</div>
+</div>
+					
+			

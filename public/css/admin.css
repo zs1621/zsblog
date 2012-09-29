@@ -1,0 +1,92 @@
+#category{
+	color: #666666;
+	font-family:Arial;
+	font-size: 0.825em;
+}
+#category {
+	margin: 0 auto;}
+ul.categoryList {
+	margin:0 auto;
+	position: relative;
+	width:500px;
+}
+
+ul.categoryList li{
+	background-color: #F9F9F9;
+	border: 1px solid #EEEEEE;
+	border-radius: 6px;
+	cursor: n-resize;
+	list-style: none outside none;
+	margin: 6px;
+	padding: 6px 9px;
+	position: relative;
+	text-shadow: 1px 1px 0 white;
+}
+
+.category .text{
+	color:#777777;
+	font-size: 1.4em;
+	}
+.category .action{
+	position: absolute;
+	right: 7px;
+	top:6px;
+
+}
+.category .actions{
+	position:absolute;
+	right:7px;
+	top:6px;
+	
+	}
+
+.category .actions a{
+	display: block;
+	float: left;
+	height:16px;
+	margin:3px;
+	overflow: hidden;
+	text-indent:-9999px;
+	width:16px;
+}
+a, a:visited{
+	color: #0196E3;
+	text-decoration: none;
+}
+.category .actions a.edit{
+	background: url("../lib/3836/edit.png") no-repeat scroll center center transparent;
+}
+.category .actions a.delete{
+	background: url("../lib/3836/delete.png") no-repeat scroll center center transparent;
+}
+
+ul.categoryList.li{
+ cursor: n-resize;
+ list-style: none outside none;
+ text-shadow: 1px 1px 0 white;
+}
+#addButton{
+	margin: 20px 260px;}
+a.green-button, a.green-button:visited {
+	background: url(../lib/3836/button_green.png) no-repeat scroll left top transparent;
+	color: black;
+	display:block;
+	font-size: 10px;
+	font-weight: bold;
+	height: 15px;
+	padding: 6px 5px 4px;
+	text-align: center;
+	text-shadow: 1px 1px 1px #DDDDDD;
+	width: 60px;
+	
+
+}
+
+
+/* 编辑输入框的样式*/
+.category input{ border: 1px solid #cccccc; color: #666666; font-family:Arial, Helvetica, sans-serif; font-size:0.725em; padding:3px 4px; width: 300px;}
+
+.editCategory{ display:inline; font-size:0.6em;padding-left:9px;}
+.editCategory a{font-weight: bold;}
+a.discardChanges{color:#c00 !important;}
+a.saveChanges{color:#4DB209 !important;}
