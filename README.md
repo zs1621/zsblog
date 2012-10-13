@@ -1,13 +1,13 @@
 zsblog
 ======
 
-A blog based in Nodejs
+A blog based in Nodejs/mongodb.  You may see the demo [rhapsody.aws.af.cm][1]
 ***
 module in use:
-expressjs 3.0.0rc4
-mongoose 3.3.0
+
+express3;mongoose3.3.0;
 ===========
 
-edit use markdown 
 
-
+--------
+[1]:http://rhapsody.aws.af.cm/

@@ -19,10 +19,11 @@ module.exports = function(express, app){
 		app.use(flash());
 
 		app.use(express.favicon());
-		app.use(express.bodyParser({
-		 	 keepExtensions: true,
-		 	 uploadDir: __dirname+'/public/img'
-		 }));//upload file path
+		// app.use(express.bodyParser({
+		//  	 keepExtensions: true,
+		//  	 uploadDir: __dirname+'/public/img'
+		//  }));//upload file path
+	  app.use(express.bodyParser());
 		app.use(express.methodOverride());
 		app.use(express.cookieParser());
 		app.use(express.session({ 
