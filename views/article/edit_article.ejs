@@ -22,7 +22,7 @@
 									<a data-toggle="pill" href="#markdown">markdown</a>
 								</li>
 								<li>
-									<a data-toggle="pill" href="#preview">预览</a>
+									<a class="preview-btn" data-toggle="pill" href="#preview">预览</a>
 								</li>
 								<li>
 									<a data-toggle="pill" href="#tags">标签</a>
@@ -74,17 +74,17 @@ $(document).ready(function(){
 	$("#category_select option:selected").remove();
 	$("#category_select").prepend('<option value ='+ valueca + '>'+textca+'</option>');
 	$("#category_select").val(valueca);
-	
-  function run_md_editor(){
-    // var converter = Markdown.getSanitizingConverter();
+  var editor;
+  function run_md_editor(){   
     var converter = new Showdown.converter();
-    var editor = new Markdown.Editor(converter);
+    editor = new Markdown.Editor(converter);
     editor.run();
-    editor.hooks.chain('onPreviewRefresh', function () {
-      prettyPrint();
-    });
   }
   run_md_editor();
+  $('.preview-btn').click(function(){
+    editor.makePreviewHtml();
+	prettyPrint();
+  });
 
   $('.tag_selectable').click(function(){
     $(this).toggleClass('tag_select');
