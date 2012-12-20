@@ -5,7 +5,7 @@ module.exports = function(express, app){
 	var flash = require('connect-flash');//error show
 
 //connect mongodb
-	var DB_URL = "mongodb://localhost:27017/zsblog";
+	var DB_URL = "mongodb://zs:1261@localhost:27017/zsblog";
 	mongoose.connect(DB_URL);
 
 
@@ -23,7 +23,8 @@ module.exports = function(express, app){
 		//  	 keepExtensions: true,
 		//  	 uploadDir: __dirname+'/public/img'
 		//  }));//upload file path
-	  app.use(express.bodyParser());
+		app.use(express.compress());
+	  	app.use(express.bodyParser());
 		app.use(express.methodOverride());
 		app.use(express.cookieParser());
 		app.use(express.session({ 

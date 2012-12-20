@@ -10,13 +10,13 @@ var tag = require('./controllers/tag');
 var operate_article = require('./controllers/operate_article');
 var article = require('./controllers/article');
 var upload = require('./controllers/upload');
-
+var demo = require('./controllers/demo');
 
 module.exports = function(app){
 
 	//signup login find_code
-	app.get('/signup', sign.signup);
-	app.post('/signup', sign.signup);
+	app.get('/szignup', sign.signup);
+	app.post('/szignup', sign.signup);
 	app.get('/login', sign.login);
 	app.post('/login', sign.login);
 	app.get('/logout', sign.logout);
@@ -58,8 +58,8 @@ module.exports = function(app){
 	app.post('/admin/article/:id/delete', article.delete);
 	app.get('/admin/article/:id/delete', article.delete);
 
-
-
+	//demo show
+	app.get('/demo/slide',demo.slide);
 	// upload image
 	app.post('/upload/image', upload.uploadImage);
 	

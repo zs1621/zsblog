@@ -2,8 +2,8 @@
 /*html, div, map, dt, header, form, footer{
 	display: block;
 }*/
-
-
+a{color:#000000}
+h1,h2,h3,h4,h5,h6{margin: 0 0 0;}
 #wrapper{
 	background: none repeat scroll 0 0 #D0D6DB;
 }

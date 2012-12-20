@@ -20,13 +20,13 @@ exports.index = function(req, res, next){
 	var page = parseInt(req.query.page, 10) || 1;
 	var keyword = req.query.q || '';
 	var limit = 5;
-	console.log(req.session);
 	var user = req.session.user;
 
 	if(Array.isArray(keyword)){
 		keyword = keyword.join(' ');
 	}
 	keyword = keyword.trim();
+	console.log(keyword);
 	req.session.keyword = keyword;
 	var query = {};
 	if(keyword){
@@ -49,7 +49,6 @@ exports.index = function(req, res, next){
 						Article.count({}, function(err, count){
 							if(err) return next(err);
 							var pages = Math.ceil(count/limit);
-							console.log(pages);
 							Category.find({}, function(err, category){
 								if(err) return next(err);
 								var category = category;
@@ -73,7 +72,6 @@ exports.index = function(req, res, next){
 
 exports.article = function(req, res, next){
 	var title = req.params.title;
-	console.log(title.length);
 	if(req.session.user){
 		var user = req.session.user;
 	}
@@ -82,7 +80,6 @@ exports.article = function(req, res, next){
 				.populate('tag')
 				.exec(function(err, articles){
 					if(err) return next(err);
-					console.log(articles);
 					articles.visitCount = articles.visitCount + 1  ;
 					articles.save(function(err){
 						if(err) return next(err);
@@ -126,7 +123,6 @@ exports.category = function(req, res, next){
 					if(articles.length > 0){						
 						article_tran(articles);
 					}
-					console.log(article);
 					Tag.find({},function(err, all_tags){
 						if(err) return next(err);
 						Category.find({},function(err, category){
@@ -137,7 +133,6 @@ exports.category = function(req, res, next){
 								var name = categories.content;
 								if(categories.article.length > 0){
 									var pages = Math.ceil(categories.article.length/limit);
-									console.log(pages);
 								}
 								
 								res.render('site/category/article',{
@@ -170,8 +165,6 @@ exports.tag = function(req, res, next){
 			if(err) return next(err);
 		});
 		var pages = 1;
-		console.log(tag.article);
-		console.log(typeof(tag.article[0]));
 		var tag_array = [];
 		if(tag.article.length > 0){
 			pages = Math.ceil(tag.article.length/limit);

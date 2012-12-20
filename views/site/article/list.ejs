@@ -1,8 +1,8 @@
 <% for(var i=0;i<article.length;i++) { %>
 <div class="article_content">
-		<h2>
+		<h4>
 			<a href="/article/<%= article[i].title %>"><%= article[i].title %></a>		
-		</h2>
+		</h4>
 		<p >
 			<% var t = article[i].publishtime; var tm = t.getMinutes() < 10? '0'+t.getMinutes() : t.getMinutes(); var tyue =  t.getMonth() + 1;
 			var time = t.getFullYear()+'-'+tyue+'-' + t.getDate()+'  '+ t.getHours() +':'+ tm ;%>
@@ -23,10 +23,12 @@
 	 	</p>
 	<br/>
 	<div class="articlebody">
+		<p></p>
 		<p><%- article[i].content %></p>
-		<p>
-		<a href="/article/<%= article[i].title %>" class="btn">阅读全文 »</a>
-		</p>
+		<div>
+		<a href="/article/<%= article[i].title %>" class="">阅读全文 »</a>
+		</div>
+	<br/>
 	</div>
 	
 </div>
@@ -73,7 +75,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-
+		prettyPrint();
 		var $nav = $('.pagination');
 		var current_page = $nav.attr('current_page');
 		if(current_page){

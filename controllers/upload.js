@@ -27,7 +27,7 @@ exports.uploadImage = function(req, res, next){
 			res.send({ status: 'fobbiden'});
 		}
 		console.log(req.session.user);
-		var upyun = new UPYun('***','****','*****');
+		var upyun = new UPYun('zsblog','rhapsody','zs1261yh');
 		fs.readFile(req.files.userfile.path, function(err, original){
 			if(err) console.log(err);
 			var md5str = md5(original);
@@ -41,3 +41,9 @@ exports.uploadImage = function(req, res, next){
 			res.send({ status: 'success', url:url});
 		})
 	}
+
+function md5(string){
+	var md5sum = crypto.createHash('md5');
+	md5sum.update(string,'utf-8');
+	return md5sum.digest('hex');
+}

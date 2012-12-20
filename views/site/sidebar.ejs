@@ -23,7 +23,7 @@
 		</ul>
 	</div>	
 </div>
-<div class="panel">
+<div class="panel" id="tagarticle">
 	<div class="header">
 		<span>文章标签</span>
 	</div>
@@ -36,3 +36,25 @@
 		</ul>
 	</div>
 </div>
+<div class="panel" id="linkgood">
+	<div class="header">
+		<span>链接</span>
+	</div>
+	<div class="inner">
+		<ul class="links">
+			<li><a href="http://www.v2ex.com/?r=zs">V2EX</a></li>
+			<li><a href="https://50.116.13.150:1433/info/manual/">VPN</a></li>
+		</ul>
+	</div>
+</div>
+<div class="panel" id="rhapsodyzs" style="position:static;top:15px">
+	<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=2&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=2703621882&verifier=e300faf4&dpc=1"></iframe>
+</div>
+<script src="/js/sidebar-follow.js"></script>
+<script>
+(new SidebarFollow()).init({
+	element:$("#rhapsodyzs"),
+	prevElement:$("#tagarticle"),
+	distanceToTop:5
+});
+</script>

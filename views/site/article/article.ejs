@@ -22,7 +22,7 @@
 				<h3><p><%= article.title %></p></h3>
 				<p >
 					<% var t = article.publishtime; var tm = t.getMinutes() < 10? '0'+t.getMinutes() : t.getMinutes();var tyue = t.getMonth() + 1;
-					var time = t.getFullYear()+'-'+tyue+'-' + t.getDay()+ '&nbsp;'+ t.getHours() +':'+ tm ;%>
+					var time = t.getFullYear()+'-'+tyue+'-' + t.getDate()+ '&nbsp;'+ t.getHours() +':'+ tm ;%>
 					<span class="col_fade pull-left"><%= time %>&nbsp;&nbsp;&nbsp;views:<%= article.visitCount %>  
 						<% if(article.tag.name){ %>
 							<span class="col_fade>Tag:</span>
@@ -60,5 +60,7 @@
 		</div>
 	</div>
 </div>
-					
-			
+<script>
+(function()
+{prettyPrint();})()
+</script>			

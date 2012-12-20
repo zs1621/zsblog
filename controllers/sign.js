@@ -7,7 +7,7 @@ exports.signup = function(req, res, next){
 	var method = req.method.toLowerCase();
 
 	if(method == 'get'){
-		res.render('sign/signup', { 
+		res.render('sign/szignup', { 
 			title: '用户注册',
 			error: req.flash('error').toString(), 
 		});
