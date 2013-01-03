@@ -1,36 +1,32 @@
 <% for(var i=0;i<article.length;i++) { %>
-<div class="article_content">
-		<h2>
-			<a href="/article/<%= article[i].title %>"><%= article[i].title %></a>		
-		</h2>
-		<p >
-			<% var t = article[i].publishtime; var tm = t.getMinutes() < 10? '0'+t.getMinutes() : t.getMinutes(); var tyue =  t.getMonth() + 1;
-			var time = t.getFullYear()+'-'+tyue+'-' + t.getDate()+'  '+ t.getHours() +':'+ tm ;%>
-			<span class="col_fade pull-left"><%= time %>  <%= article[i].visitCount %>(views)
-			<% if(article[i].tag.name){ %>
-				<span class="col_fade">标签:</span>
-					<span class="tag-in-article"><a href="/tag/<%= article[i]._id %>"><%= article[i].tag.name %></a></span>
-			<% } else if(article[i].tag.length > 0){ %>
-				<span class="col_fade">Tag </span>
-				<% for(var j = 0; j < article[i].tag.length; j++) {%>
-					<span class="tag-in-article"> <a href="/tag/<%= article[i].tag[j]._id %>"> <%= article[i].tag[j].name %> </a></span>
+<article id="article" class="post clear">
+	<header class="article_header">
+		<h1>
+			<a title="<%= article[i].title %>" href="/article/<%= article[i].title %>"><%= article[i].title %></a>
+		</h1>
+		<div class="article_data">
+			<% var t = article[i].publishtime;
+				 var tm = t.getMinutes() < 10? '0'+t.getMinutes() : t.getMinutes();
+				 var tyue =  t.getMonth() + 1;
+				 var time = t.getFullYear()+'-'+tyue+'-' + t.getDate()+'  '+ t.getHours() +':'+ tm ;%>
+			<div class="article_post_date">
+				<span class="article_post_date_link"><%= time %></span>
+			</div>
+			<div class="article_post_tag">
+				<% if(article[i].tag.name){ %>
+					<a title="view all articles in <%= article[i].tag.name %>" href="/tag/<%= article[i].tag[j]._id %>"><%= article[i].tag.name %></a>
+				<%} else if(article[i].tag.length > 0){%>
+					<% for(var j = 0; j < article[i].tag.length; j++) {%>
+						<a class="article_tag_style" title="view all articles in <%= article[i].tag[j].name%>" href="/tag/<%= article[i].tag[j]._id %>">#<%= article[i].tag[j].name %></a>
+					<% } %>
 				<% } %>
-			<% } %> 
-			</span>
-	 		<span class="pull-right" style="color:#1BA1E6">
-	 			<a class="btn btn-mini btn-primary" href="/article/<%= article[i].title %>#uyan_frame">看看评论</a>
-	 		</span>
-	 	</p>
-	<br/>
-	<div class="articlebody">
-		<p><%- article[i].content %></p>
-		<p>
-		<a href="/article/<%= article[i].title %>" class="btn">阅读全文 »</a>
-		</p>
-		<br/>
+			</div>
+		</div>
+	</header>
+	<div class="article_content">
+		<%- article[i].content %>
 	</div>
-	
-</div>
+</article>
 <% } %>
 
 <div class="pagination" current_page = "<%= current_page %>">
@@ -67,14 +63,10 @@
 		<% } %>
 	</ul>
 </div> 
-<hr>
-
-
-
 
 <script type="text/javascript">
 	$(document).ready(function(){
-
+		prettyPrint();
 		var $nav = $('.pagination');
 		var current_page = $nav.attr('current_page');
 		if(current_page){

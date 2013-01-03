@@ -1,0 +1,116 @@
+
+	<div id="sidebar">
+		<div class="panel">
+			<div class="header">
+				<span class="col_fade">关于</span>
+			</div>
+			<div class="inner">
+				<p>Test blog </p>
+				<ul>
+					<li>博客基于nodejs expressjs</li>
+					<li>使用markdown编辑器</li>
+					<li>评论模块使用贝米第三方社会评论</li>
+				</ul>
+			</div>	
+		</div>
+	</div>
+	<div id="content">
+		<div class="panel">
+			<div class="header">
+				<ul class="breadcrumb">
+					<li>
+					<a href="/">首页</a>
+					<span class="divider">/</span>
+					</li>
+					<li class="active">注册</li>
+				</ul>
+			</div>
+			<div class="inner">
+				<div class="sep10"></div>
+				<div class="sep10"></div>
+				<% if(error){ %>
+					<div class = 'alert alert-error'>
+						<strong><%= error %></strong><a class="closed pull-right" style="cursor: pointer">X</a>
+					</div>
+				<% } %>
+				<div class="alert alert-error" style="display:none" id="error">
+					
+					<strong></strong><a class="closed pull-right" style="cursor: pointer" >X</a>
+				</div>
+				<form id= 'regbox' class="form-horizontal" method='post' action="/szignup" onsubmit="return X()" >
+						<div class="control-group">
+							<label class="control-label" for='name'>用户名</label>
+							<div class="controls">
+								<input id='nick' class='input-xlarge' type='text' name='nickname' 
+								 value = "" placeholder="数字_英语_下划线" >
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="email">邮箱</label>
+							<div class="controls">
+								<input id="email" class="input-xlarge" type="text" name="email" value="" >
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="passwd">密码</label>
+							<div class="controls">
+								<input id="password1" class="input-xlarge" type="password" name="password" value="">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for='passwd'>确认密码</label>
+							<div class="controls">	
+								<input id='password2' class='input-xlarge' type='password' name='password1' value="">
+							</div>
+						</div>
+						<div class="form-actions">
+							<button id='btn' class="btn btn-primary" type='submit' value="注册">注册</button>
+						</div>
+				</form>	
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript">
+var a='';
+$(document).ready(function(){
+	$(".closed").live('click',function(){
+		$(this).closest('div').hide();
+	})
+	$("#btn").click(function(){
+			var regnick = /^[0-9a-zA-Z-_]{1,}/;
+			var regpasswd = /^[0-9a-zA-Z-_]{3,}/;
+			var regemail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/;
+			if(!$("#nick").val().match(regnick)){
+				$("strong").text("昵称只能包含英文数字和下划线");
+				$("#error").show();
+				a = false;
+			}else if(!$("#email").val().match(regemail)){
+				$("strong").text("请填写正确的邮箱");
+				$("#error").show();
+				a = false;
+			}else if(!$("#password1").val().match(regpasswd)){
+				$("strong").text("密码不能少于3位");
+				$("#error").show();
+				a = false;
+			}else if($("#password1").val() != $("#password2").val()){
+				$("strong").text("两次密码输入不一致");
+				$("#error").show();
+				a = false;
+			}else {
+				a = true;
+			}
+	});	
+});
+
+function X(){
+	if(a){return true}else{return false;}
+	
+};
+
+</script>
+
+
+
+
+

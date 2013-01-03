@@ -1,62 +1,108 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta cotent="冬瓜" name="author">
-		<title> 冬瓜</title>
-		<link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" >
-		<link href="/code-prettify/prettify.css" rel="stylesheet" type="text/css" >
-		<link href="/css/index.css" rel="stylesheet"  type="text/css" >
-		<script src="/code-prettify/prettify.js"></script>
-		<script src="/js/jquery.js"></script>
-		<script src="/js/bootstrap.min.js"></script>	
-	</head>
-	<body>
-		<div class="navbar ">
-			<div class="navbar-inner">
-				<div class="container">
-					<a class="brand" href="/">冬瓜</a>
-					<div class="nav-collapse">
-						<ul class="nav">
-							<li class="active">
-								<a href="/">首页</a>
-							</li>
-						</ul>
-						<form id="tagsearch" class="navbar-search" method="get" action="/">
-								<input type="text" id="c" class="span2 search-query" placeholder="搜一搜" value="" name="q">
-						</form>
-						<ul class="nav pull-right">
-							<% if(locals.user) {%>
-							<li>
-								<p class="navbar-text pull-right">欢迎光临！</p>
-							</li>
-							<% } %>
-							<li>
-								<a href="/login" >登陆</a>
-							</li>
-							<% if(locals.user){ %>
-							<li>
-								<a href="/admin/article/operate_article" >后台</a>
-							</li>
-							<li>
-								<a href="/logout">登出</a>
-							</li>
-							<% } %>
-						</ul
-						
-					</div>
+<head>
+<!--meta http-equiv="Content-Type" content="text/html;charset=utf-8"-->
+<title><%= title %> | RhapsodyBlog</title>
+<link href="/css/index.css" rel="stylesheet" type="text/css">
+<link href="/css/prettify.css" rel="stylesheet" type="text/css" >
+<script src="/code-prettify/prettify.js"></script>
+<script src="/js/jquery.js"></script>
+</head>
+<body>
+	<div id="wrap">
+		<header id="page_header">
+			<hgroup>
+				<h1 id="site-title">
+					<a rel="home" title="RhapsodyBlog" href="/"><span class="emdash">—</span>Rhapsody Blog</a>
+				</h1>
+				<h2 id="site-description">心之所向，路之所往</h2>
+			</hgroup>
+			<div class="clear">
+				<nav id="access" class="clear">
+					<ul class="menu clear"> 
+					<% if(sign == 0) {%>
+						<li class="current_page_item">
+							<a href="/">首页</a>
+						</li>
+						<li class="line">
+							<span>|</span>
+						</li>
+						<li class="aboutme">
+							<a href="/archive">文章归档</a>
+						</li>
+						<li class="line">
+							<span>|</span>
+						</li>
+						<li class="achive">
+							<a href="/about">关于我</a>
+						</li>
+					<% }else if(sign == 1) {%>
+						<li class="home">
+							<a href="/">首页</a>
+						</li>
+						<li class="line">
+							<span>|</span>
+						</li>
+						<li class="current_page_item">
+							<a href="/archive">文章存档</a>
+						</li>
+						<li class="line">
+							<span>|</span>
+						</li>
+						<li class="achive">
+							<a href="/about">关于我</a>
+						</li>
+				  <% }else if(sign == 2) {%>
+				  	<li class="home">
+							<a href="/">首页</a>
+						</li>
+						<li class="line">
+							<span>|</span>
+						</li>
+						<li class="arhive">
+							<a href="/archive">文章归档</a>
+						</li>
+						<li class="line">
+							<span>|</span>
+						</li>
+						<li class="current_page_item">
+							<a href="/about">关于我</a>
+						</li>
+				  <%}%>
+					</ul>
+				</nav>
+				<div class="search-form-holder">
+					<form id="searchform" action="/">
+						<fieldset>
+							<input type="text" value="look" onblur="if(this.value)=='' this.value='look';"onfocus="if(this.value='look') this.value='';" name="q">
+							<button type="submit">Search</button>
+						</fieldset>
+					</form>
 				</div>
 			</div>
+		</header>
+		<div class="content clear">
+			<section id="posts">
+				<%- body %>
+			
+			</section>
+			<section class="sidebar">
+				<%- include ./site/sidebar %>
+			</section>
 		</div>
-		<div id="wrapper">
-			<div id="main">
-			<%- body %>
-			</div>
-		</div>
-		<div id="footer">
-			<div id="footer_main">
-				<p> © Crzzz  2012  Based on Bootstrap,Node.js </p>
-			</div>
-		</div>
-	</body>
+			<% if(content) {%>
+					<div class="respond">
+						<div id="uyan_frame"></div>
+						<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1685906" async=""></script>
+						</div>
+					</div>
+			<% } %>
+	</div>
+	
+
+
+	<footer id="page_footer">
+		<p>© Rhapsody 2012 Based on express,Node.js;Theme by <a href="http://wpshower.com/">Blogum</a></p>
+	</footer>
+</body>
 </html>

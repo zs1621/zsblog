@@ -1,0 +1,27 @@
+<article id="article" class="post clear">
+	<header class="article_header">
+		<h1>
+			<a href="/archive">文章归档</a>
+		</h1>
+	</header>
+	<div class="article_content">
+		<% for(var year in n) {%>
+			<ul class="article_year">
+				<p><%= year %>年</p>
+				<div class="divline"></div>
+				<% for(var month in n[year]) {%>
+					<li class="article_month">
+						<p>
+							<%=month %>月(<%= n[year][month].length%>篇)
+						</p>
+						<ul class= "article_title">
+						<% for(var title in n[year][month]) {%>
+							<li ><a href="/article/<%= n[year][month][title] %>"><%= n[year][month][title] %></a></li>
+					  <%}%>
+						</li>
+					</ul>
+				<%}%>
+			</ul>
+		<%}%>
+	</div>	
+</article>

@@ -1,0 +1,160 @@
+/*index*/
+/*html, div, map, dt, header, form, footer{
+	display: block;
+}*/
+a{color:#000000}
+h1,h2,h3,h4,h5,h6{margin: 0 0 0;}
+#wrapper{
+	background: none repeat scroll 0 0 #D0D6DB;
+}
+
+#main{
+	margin: 0 auto;
+	min-height: 400px;
+	padding:10px 0 30px;
+	width: 960px;
+}
+#content{
+	margin: 0px 222px 0px 0px;
+	padding: 10px 10px 0px 0px;
+}
+.article_content{
+	background-color: #FFFFFF;
+	border-bottom: 1px solid #F5F5F5; 	
+	margin-bottom: 10px;
+	padding: 0px 20px;
+}
+
+.articlebody img {
+    border: 1px solid #DDDDDD;
+    box-shadow: 0 0 8px #DDDDDD;
+    
+    margin: 0 auto 20px;
+    max-height: 400px;
+    max-width: 550px;
+    padding: 8px;
+    width: auto !important;
+    vertical-align: right;
+}
+
+#sidebar{
+	width: 219px;
+	padding: 10px 10px 10px 0px;
+	float: right;
+}
+#footer{
+	height: 200px;
+	clear: both;
+}
+#footer_main{
+	color: #E2E2E2;
+	margin: 0 auto;
+	padding: 20px 0;
+	width: 920px;
+}
+
+/*tag_show*/
+.col_fade {
+	color: #999999;
+}
+.tag-in-article {
+	background: none repeat scroll 0 0 #BFBFBF;
+	border-radius: 3px 3px 3px 3px;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 12px;
+	margin: 0 3px 10px 0;
+	padding: 1px 3px;
+}
+
+.tag-in-article a{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.tag-in-article a:hover{
+	color: #0099FF;
+}
+
+/*yyan_comment*/
+#bm_comments{
+	padding: 0 20px;
+}
+
+
+/*head*/
+body,p{
+	
+	line-height: 16px;
+	font-size:  12px;
+}
+body{
+	background-color: #FFFFFF;
+	color:#333333;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.navbar {
+	margin-bottom: 0; 
+}
+.navbar .container{
+	width: 960px;
+	margin: 0px auto;
+}
+
+.navbar .brand{
+	padding: 7px 0px 0px 20px;
+	width: 150px;
+}
+
+.navbar .navbar-search{
+	margin-top: 7px;
+}
+.nabar .search-query{
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	background: #d0d6db url('../img/search.png')
+}
+
+.navbar .search-query: focus, .nabar .search-query.focused{
+		background-color: #fff;
+		padding: 4px 5px 4px 22px;
+		color: #000;
+}
+
+.navbar .nav>li>a{
+	font-weight: bold;
+}
+
+/*login*/
+.panel{
+	background-color: #FFFFFF;
+	box-shadow:  1px 2px 6px gray;
+	margin:3px 0px;
+}
+.panel .inner{
+	line-height: 16px;
+	padding:10px;
+}
+.panel .header{
+	border-bottom: 1px solid  #E2E2E2;
+	padding:10px;
+}
+.breadcrumb {
+	padding: 0px;
+	margin: 0px;
+	border: medium none;
+	background: none repeat scroll 0 0 transparent;
+}
+
+.pagination{
+	height:40px;
+	margin: 10px 0 10px 10px;
+}
+form,textarea{
+	overflow: hidden;
+	margin-bottom: 0px;
+}
+
+
+
+

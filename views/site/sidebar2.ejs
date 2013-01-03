@@ -1,0 +1,38 @@
+<div class="panel">
+	<div class="header">
+		<ul class= "breadcrumb">关于
+			<li><br/></li>
+		</ul>
+		
+	</div>
+	<div id = "siteinfo" class="inner">
+		<p>TEST_BLOG</p>
+		<p>基于Nodejs expressjs markdown</p>
+	</div>
+</div>
+<div class="panel">
+	<div class="header">
+		<span>文章分类</span>
+	</div>
+	<div class="inner">
+		<ul class="divider">
+			<% for(var i = 0; i < category.length; i++ ) { %>
+			<li><a href="/category/<%= category[i].id%>" ><%= category[i].content %></a>
+			</li>
+			<% } %>
+		</ul>
+	</div>	
+</div>
+<div class="panel">
+	<div class="header">
+		<span>文章标签</span>
+	</div>
+	<div class="inner">
+		<ul class="tags">
+		<% for(var i=0; i< tags.length; i++) { %>
+			<a href="/tag/<%= tags[i]._id%>" class="tag" tag_id="<%= tags[i]._id %>"> <%= tags[i].name %>
+			</a> 
+		<% } %>
+		</ul>
+	</div>
+</div>

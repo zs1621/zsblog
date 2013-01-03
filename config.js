@@ -5,7 +5,7 @@ module.exports = function(express, app){
 	var flash = require('connect-flash');//error show
 
 //connect mongodb
-	var DB_URL = "mongodb://localhost:27017/zsblog";
+	var DB_URL = "mongodb://";
 	mongoose.connect(DB_URL);
 
 

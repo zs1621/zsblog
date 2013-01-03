@@ -19,15 +19,15 @@
 
 
     // -------------------------------------------------------------------
-    // YOUR CHANGES GO HERE
+    //  YOUR CHANGES GO HERE
     //
-    // I've tried to localize the things you are likely to change to
+    // I've tried to localize the things you are likely to change to 
     // this area.
     // -------------------------------------------------------------------
 
     // The text that appears on the upper part of the dialog box when
     // entering links.
-    var linkDialogText = "<p><b>超链掿/b></p><p>http://example.com/ \"optional title\"</p>";
+    var linkDialogText = "<p><b>插入超链接</b></p><p>http://example.com/ \"optional title\"</p>";
     var imageDialogText = "<p><b>插入图片</b></p><p>http://example.com/images/diagram.jpg \"optional title\"</p>";
 
     // The default text that appears in the dialog input box when entering
@@ -38,7 +38,7 @@
     var defaultHelpHoverTitle = "Markdown Editing Help";
 
     // -------------------------------------------------------------------
-    // END OF YOUR CHANGES
+    //  END OF YOUR CHANGES
     // -------------------------------------------------------------------
 
     // help, if given, should have a property "handler", the click handler for the help button,
@@ -54,15 +54,15 @@
         idPostfix = idPostfix || "";
 
         var hooks = this.hooks = new Markdown.HookCollection();
-        hooks.addNoop("onPreviewRefresh"); // called with no arguments after the preview has been refreshed
+        hooks.addNoop("onPreviewRefresh");       // called with no arguments after the preview has been refreshed
         hooks.addNoop("postBlockquoteCreation"); // called with the user's selection *after* the blockquote was created; should return the actual to-be-inserted text
-        hooks.addFalse("insertImageDialog"); /* called with one parameter: a callback to be called with the URL of the image. If the application creates
-* its own image insertion dialog, this hook should return true, and the callback should be called with the chosen
-* image url (or null if the user cancelled). If this hook returns false, the default dialog will be used.
-*/
+        hooks.addFalse("insertImageDialog");     /* called with one parameter: a callback to be called with the URL of the image. If the application creates
+                                                  * its own image insertion dialog, this hook should return true, and the callback should be called with the chosen
+                                                  * image url (or null if the user cancelled). If this hook returns false, the default dialog will be used.
+                                                  */
 
         this.getConverter = function () { return markdownConverter; }
-
+        this.previewManager;
         var that = this,
             panels;
 
@@ -72,7 +72,8 @@
 
             panels = new PanelCollection(idPostfix);
             var commandManager = new CommandManager(hooks);
-            var previewManager = new PreviewManager(markdownConverter, panels, function () { hooks.onPreviewRefresh(); });
+            var previewManager =  this.previewManager = new PreviewManager(markdownConverter, panels, function () { hooks.onPreviewRefresh(); });
+            
             var undoManager, uiManager;
 
             if (!/\?noundo/.test(doc.location.href)) {
@@ -90,7 +91,9 @@
 
             forceRefresh();
         };
-
+        this.makePreviewHtml = function() {
+            this.previewManager.makePreviewHtml();
+        }
     }
 
     // before: contains all the text in the input box BEFORE the selection.
@@ -223,23 +226,23 @@
         }
     };
 
-    // end of Chunks
+    // end of Chunks 
 
     // A collection of the important regions on the page.
     // Cached so we don't have to keep traversing the DOM.
     // Also holds ieCachedRange and ieCachedScrollTop, where necessary; working around
     // this issue:
     // Internet explorer has problems with CSS sprite buttons that use HTML
-    // lists. When you click on the background image "button", IE will
+    // lists.  When you click on the background image "button", IE will 
     // select the non-existent link text and discard the selection in the
-    // textarea. The solution to this is to cache the textarea selection
-    // on the button's mousedown event and set a flag. In the part of the
+    // textarea.  The solution to this is to cache the textarea selection
+    // on the button's mousedown event and set a flag.  In the part of the
     // code where we need to grab the selection, we check for the flag
     // and, if it's set, use the cached area instead of querying the
     // textarea.
     //
     // This ONLY affects Internet Explorer (tested on versions 6, 7
-    // and 8) and ONLY on button clicks. Keyboard shortcuts work
+    // and 8) and ONLY on button clicks.  Keyboard shortcuts work
     // normally since the focus never leaves the textarea.
     function PanelCollection(postfix) {
         this.buttonBar = doc.getElementById("wmd-button-bar" + postfix);
@@ -266,7 +269,7 @@
     // event.
     util.addEvent = function (elem, event, listener) {
         if (elem.attachEvent) {
-            // IE only. The "on" is mandatory.
+            // IE only.  The "on" is mandatory.
             elem.attachEvent("on" + event, listener);
         }
         else {
@@ -280,7 +283,7 @@
     // event.
     util.removeEvent = function (elem, event, listener) {
         if (elem.detachEvent) {
-            // IE only. The "on" is mandatory.
+            // IE only.  The "on" is mandatory.
             elem.detachEvent("on" + event, listener);
         }
         else {
@@ -296,7 +299,7 @@
         return text;
     };
 
-    // Extends a regular expression. Returns a new RegExp
+    // Extends a regular expression.  Returns a new RegExp
     // using pre + regex + post as the expression.
     // Used in a few functions where we have a base
     // expression and we want to pre- or append some
@@ -573,7 +576,7 @@
                     setMode("escape");
                 }
                 else if ((keyCode < 16 || keyCode > 20) && keyCode != 91) {
-                    // 16-20 are shift, etc.
+                    // 16-20 are shift, etc. 
                     // 91: left window key
                     // I think this might be a little messed up since there are
                     // a lot of nonprinting keys above 20.
@@ -688,7 +691,7 @@
                 stateObj.text = util.fixEolChars(inputArea.value);
 
                 // IE loses the selection in the textarea when buttons are
-                // clicked. On IE we cache the selection. Here, if something is cached,
+                // clicked.  On IE we cache the selection. Here, if something is cached,
                 // we take it.
                 var range = panels.ieCachedRange || doc.selection.createRange();
 
@@ -829,7 +832,7 @@
             pushPreviewHtml(text);
         };
 
-        // setTimeout is already used. Used as an event listener.
+        // setTimeout is already used.  Used as an event listener.
         var applyTimeout = function () {
 
             if (timeout) {
@@ -879,7 +882,7 @@
         this.processingTime = function () {
             return elapsedTime;
         };
-
+        this.makePreviewHtml = makePreviewHtml;
         var isFirstTimeFilled = true;
 
         // IE doesn't let you use innerHTML if the element is contained somewhere in a table
@@ -946,8 +949,8 @@
 
         var init = function () {
 
-            setupEvents(panels.input, applyTimeout);
-            makePreviewHtml();
+            //setupEvents(panels.input, applyTimeout);
+            //makePreviewHtml();
 
             if (panels.preview) {
                 panels.preview.scrollTop = 0;
@@ -1002,14 +1005,14 @@
     // text: The html for the input box.
     // defaultInputText: The default value that appears in the input box.
     // callback: The function which is executed when the prompt is dismissed, either via OK or Cancel.
-    // It receives a single argument; either the entered text (if OK was chosen) or null (if Cancel
-    // was chosen).
+    //      It receives a single argument; either the entered text (if OK was chosen) or null (if Cancel
+    //      was chosen).
     ui.prompt = function (text, defaultInputText, callback, isImage) {
 
         // These variables need to be declared at this level since they are used
         // in multiple functions.
-        var dialog; // The dialog box.
-        var input; // The text box where you enter the hyperlink.
+        var dialog;         // The dialog box.
+        var input;         // The text box where you enter the hyperlink.
 
 
         if (defaultInputText === undefined) {
@@ -1042,7 +1045,7 @@
                 text = text.replace('http://ftp://', 'ftp://');
 
                 // if (text.indexOf('http://') === -1 && text.indexOf('ftp://') === -1 && text.indexOf('https://') === -1) {
-                // text = 'http://' + text;
+                //     text = 'http://' + text;
                 // }
             }
 
@@ -1083,9 +1086,9 @@
             style.position = "relative";
             dialog.appendChild(form);
 
-var box = doc.createElement("div")
-form.appendChild(box);
-
+			var box = doc.createElement("div")
+			form.appendChild(box);
+			
             // The input text box
             input = doc.createElement("input");
             input.type = "text";
@@ -1097,37 +1100,37 @@ form.appendChild(box);
             box.appendChild(input);
             
             if(isImage){
-             var spacer = doc.createElement("span");
-             spacer.className = "sp10";
-             box.appendChild(spacer);
+            	var spacer = doc.createElement("span");
+            	spacer.className = "sp10";
+            	box.appendChild(spacer);
             
-             var upload_img_btn = doc.createElement("Button");
-             upload_img_btn.innerHTML = "浏览";
-             upload_img_btn.className = "btn";
-             style = upload_img_btn.style;
-             style.display = "inline";
-             style.marginTop = "-9px";
-             box.appendChild(upload_img_btn);
-            
-             var img_uploader = new AjaxUpload(upload_img_btn,{
-             autoSubmit : true,
-             responseType: 'json',
-             action : "/upload/image",
-             onSubmit: function(file,ext) {
-             if (! (ext && /^(jpg|png|jpeg|gif)$/i.test(ext))){
-             alert('只能上传 jpg|png|jpeg|gif 格式的图片');
-             return false;
-             };
-             },
-             data: { user_action: 'upload_image'},
-             onComplete : function(file, response){
-             if(response.status == "success"){
-             input.value = response.url;
-             }else{
-             alert("上传失败,请重试");
-             }
-             }
-             });
+            	var upload_img_btn = doc.createElement("Button");
+            	upload_img_btn.innerHTML = "浏览";
+            	upload_img_btn.className = "btn";
+            	style = upload_img_btn.style;
+            	style.display = "inline";
+            	style.marginTop = "-9px";
+            	box.appendChild(upload_img_btn);
+            	
+            	var img_uploader = new AjaxUpload(upload_img_btn,{
+            		autoSubmit : true,
+            		responseType: 'json',
+            		action : "/upload/image",
+            		onSubmit: function(file,ext) {
+            			if (! (ext && /^(jpg|png|jpeg|gif)$/i.test(ext))){
+            				alert('只能上传 jpg|png|jpeg|gif 格式的图片。');
+            				return false;
+            			};
+            		},
+            		data: { user_action: 'upload_image'},
+            		onComplete : function(file, response){
+            			if(response.status == "success"){
+            				input.value = response.url;
+            			}else{
+            				alert("上传失败，请重试。");
+            			}
+            		}
+            	});
             }
 
             // The ok button
@@ -1313,7 +1316,7 @@ form.appendChild(box);
 
                 var chunks = state.getChunks();
 
-                // Some commands launch a "modal" prompt dialog. Javascript
+                // Some commands launch a "modal" prompt dialog.  Javascript
                 // can't really make a modal dialog box and the WMD code
                 // will continue to execute while the dialog is displayed.
                 // This prevents the dialog pattern I'm used to and means
@@ -1321,14 +1324,14 @@ form.appendChild(box);
                 //
                 // var link = CreateLinkDialog();
                 // makeMarkdownLink(link);
-                //
+                // 
                 // Instead of this straightforward method of handling a
                 // dialog I have to pass any code which would execute
                 // after the dialog is dismissed (e.g. link creation)
                 // in a function parameter.
                 //
                 // Yes this is awkward and I think it sucks, but there's
-                // no real workaround. Only the image and link code
+                // no real workaround.  Only the image and link code
                 // create dialogs and require the function pointers.
                 var fixupInputArea = function () {
 
@@ -1443,33 +1446,33 @@ form.appendChild(box);
                 xPosition += 25;
             }
 
-            buttons.bold = makeButton("wmd-bold-button", "粗体<strong> Ctrl+B", "0px", bindCommand("doBold"));
+            buttons.bold = makeButton("wmd-bold-button", "粗体 <strong> Ctrl+B", "0px", bindCommand("doBold"));
             buttons.italic = makeButton("wmd-italic-button", "斜体 <em> Ctrl+I", "-20px", bindCommand("doItalic"));
             makeSpacer(1);
-            buttons.link = makeButton("wmd-link-button", "超链接 Ctrl+L", "-40px", bindCommand(function (chunk, postProcessing) {
+            buttons.link = makeButton("wmd-link-button", "超链接 <a> Ctrl+L", "-40px", bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, false);
             }));
-            buttons.quote = makeButton("wmd-quote-button", "块引用<blockquote> Ctrl+Q", "-60px", bindCommand("doBlockquote"));
+            buttons.quote = makeButton("wmd-quote-button", "块引用 <blockquote> Ctrl+Q", "-60px", bindCommand("doBlockquote"));
             buttons.code = makeButton("wmd-code-button", "代码 <pre><code> Ctrl+K", "-80px", bindCommand("doCode"));
             buttons.image = makeButton("wmd-image-button", "图片 <img> Ctrl+G", "-100px", bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, true);
             }));
             makeSpacer(2);
-            buttons.olist = makeButton("wmd-olist-button", "有序列表<ol> Ctrl+O", "-120px", bindCommand(function (chunk, postProcessing) {
+            buttons.olist = makeButton("wmd-olist-button", "有序列表 <ol> Ctrl+O", "-120px", bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, true);
             }));
-            buttons.ulist = makeButton("wmd-ulist-button", "无序列表 Ctrl+U", "-140px", bindCommand(function (chunk, postProcessing) {
+            buttons.ulist = makeButton("wmd-ulist-button", "无序列表 <ul> Ctrl+U", "-140px", bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, false);
             }));
-            buttons.heading = makeButton("wmd-heading-button", "标题<h1>/<h2> Ctrl+H", "-160px", bindCommand("doHeading"));
-            buttons.hr = makeButton("wmd-hr-button", "ˮ水平线<hr> Ctrl+R", "-180px", bindCommand("doHorizontalRule"));
+            buttons.heading = makeButton("wmd-heading-button", "标题 <h1>/<h2> Ctrl+H", "-160px", bindCommand("doHeading"));
+            buttons.hr = makeButton("wmd-hr-button", "水平线 <hr> Ctrl+R", "-180px", bindCommand("doHorizontalRule"));
             makeSpacer(3);
-            buttons.undo = makeButton("wmd-undo-button", "撤销- Ctrl+Z", "-200px", null);
+            buttons.undo = makeButton("wmd-undo-button", "撤销 - Ctrl+Z", "-200px", null);
             buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
 
             var redoTitle = /win/.test(nav.platform.toLowerCase()) ?
-                "重做- Ctrl+Y" :
-                "重做- Ctrl+Shift+Z"; // mac and other non-Windows platforms
+                "重做 - Ctrl+Y" :
+                "重做 - Ctrl+Shift+Z"; // mac and other non-Windows platforms
 
             buttons.redo = makeButton("wmd-redo-button", redoTitle, "-220px", null);
             buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
@@ -1552,7 +1555,7 @@ form.appendChild(box);
         chunk.trimWhitespace();
         chunk.selection = chunk.selection.replace(/\n{2,}/g, "\n");
 
-        // Look for stars before and after. Is the chunk already marked up?
+        // Look for stars before and after.  Is the chunk already marked up?
         // note that these regex matches cannot fail
         var starsBefore = /(\**$)/.exec(chunk.before)[0];
         var starsAfter = /(^\**)/.exec(chunk.after)[0];
@@ -1565,7 +1568,7 @@ form.appendChild(box);
             chunk.after = chunk.after.replace(re("^[*]{" + nStars + "}", ""), "");
         }
         else if (!chunk.selection && starsAfter) {
-            // It's not really clear why this code is necessary. It just moves
+            // It's not really clear why this code is necessary.  It just moves
             // some arbitrary stuff around.
             chunk.after = chunk.after.replace(/^([*_]*)/, "");
             chunk.before = chunk.before.replace(/(\s?)$/, "");
@@ -1619,15 +1622,15 @@ form.appendChild(box);
 
         var addDefNumber = function (def) {
             refNumber++;
-            def = def.replace(/^[ ]{0,3}\[(\d+)\]:/, " [" + refNumber + "]:");
+            def = def.replace(/^[ ]{0,3}\[(\d+)\]:/, "  [" + refNumber + "]:");
             defs += "\n" + def;
         };
 
         // note that
         // a) the recursive call to getLink cannot go infinite, because by definition
-        // of regex, inner is always a proper substring of wholeMatch, and
+        //    of regex, inner is always a proper substring of wholeMatch, and
         // b) more than one level of nesting is neither supported by the regex
-        // nor making a lot of sense (the only use case for nesting is a linked image)
+        //    nor making a lot of sense (the only use case for nesting is a linked image)
         var getLink = function (wholeMatch, before, inner, afterInner, id, end) {
             inner = inner.replace(regex, getLink);
             if (defsToAdd[id]) {
@@ -1715,12 +1718,12 @@ form.appendChild(box);
                 background.parentNode.removeChild(background);
 
                 if (link !== null) {
-                    // ( $1
-                    // [^\\] anything that's not a backslash
-                    // (?:\\\\)* an even number (this includes zero) of backslashes
+                    // (                          $1
+                    //     [^\\]                  anything that's not a backslash
+                    //     (?:\\\\)*              an even number (this includes zero) of backslashes
                     // )
-                    // (?= followed by
-                    // [[\]] an opening or closing bracket
+                    // (?=                        followed by
+                    //     [[\]]                  an opening or closing bracket
                     // )
                     //
                     // In other words, a non-escaped bracket. These have to be escaped now to make sure they
@@ -1818,24 +1821,24 @@ form.appendChild(box);
         // text *directly before* the selection already was a blockquote:
 
         /*
-if (chunk.before) {
-chunk.before = chunk.before.replace(/\n?$/, "\n");
-}
-chunk.before = chunk.before.replace(/(((\n|^)(\n[ \t]*)*>(.+\n)*.*)+(\n[ \t]*)*$)/,
-function (totalMatch) {
-chunk.startTag = totalMatch;
-return "";
-});
-*/
+        if (chunk.before) {
+        chunk.before = chunk.before.replace(/\n?$/, "\n");
+        }
+        chunk.before = chunk.before.replace(/(((\n|^)(\n[ \t]*)*>(.+\n)*.*)+(\n[ \t]*)*$)/,
+        function (totalMatch) {
+        chunk.startTag = totalMatch;
+        return "";
+        });
+        */
 
         // This comes down to:
         // Go backwards as many lines a possible, such that each line
-        // a) starts with ">", or
-        // b) is almost empty, except for whitespace, or
-        // c) is preceeded by an unbroken chain of non-empty lines
-        // leading up to a line that starts with ">" and at least one more character
+        //  a) starts with ">", or
+        //  b) is almost empty, except for whitespace, or
+        //  c) is preceeded by an unbroken chain of non-empty lines
+        //     leading up to a line that starts with ">" and at least one more character
         // and in addition
-        // d) at least one line fulfills a)
+        //  d) at least one line fulfills a)
         //
         // Since this is essentially a backwards-moving regex, it's susceptible to
         // catstrophic backtracking and can cause the browser to hang;
@@ -1854,14 +1857,14 @@ return "";
                 var good = false;
                 line = lines[i];
                 inChain = inChain && line.length > 0; // c) any non-empty line continues the chain
-                if (/^>/.test(line)) { // a)
+                if (/^>/.test(line)) {                // a)
                     good = true;
-                    if (!inChain && line.length > 1) // c) any line that starts with ">" and has at least one more character starts the chain
+                    if (!inChain && line.length > 1)  // c) any line that starts with ">" and has at least one more character starts the chain
                         inChain = true;
-                } else if (/^[ \t]*$/.test(line)) { // b)
+                } else if (/^[ \t]*$/.test(line)) {   // b)
                     good = true;
                 } else {
-                    good = inChain; // c) the line is not empty and does not start with ">", so it matches if and only if we're in the chain
+                    good = inChain;                   // c) the line is not empty and does not start with ">", so it matches if and only if we're in the chain
                 }
                 if (good) {
                     match += line + "\n";
@@ -1870,7 +1873,7 @@ return "";
                     match = "\n";
                 }
             }
-            if (!/(^|\n)>/.test(match)) { // d)
+            if (!/(^|\n)>/.test(match)) {             // d)
                 leftOver += match;
                 match = "";
             }
@@ -1968,12 +1971,12 @@ return "";
             chunk.skipLines(nLinesBack, nLinesForward);
 
             if (!chunk.selection) {
-                chunk.startTag = " ";
+                chunk.startTag = "    ";
                 chunk.selection = "enter code here";
             }
             else {
                 if (/^[ ]{0,3}\S/m.test(chunk.selection)) {
-                    chunk.selection = chunk.selection.replace(/^/gm, " ");
+                    chunk.selection = chunk.selection.replace(/^/gm, "    ");
                 }
                 else {
                     chunk.selection = chunk.selection.replace(/^[ ]{4}/gm, "");
@@ -2120,7 +2123,7 @@ return "";
             return;
         }
 
-        var headerLevel = 0; // The existing header level of the selected text.
+        var headerLevel = 0;     // The existing header level of the selected text.
 
         // Remove any existing hash heading markdown and save the header level.
         chunk.findTags(/#+[ ]*/, /[ ]*#+/);
@@ -2151,7 +2154,7 @@ return "";
         if (headerLevelToCreate > 0) {
 
             // The button only creates level 1 and 2 underline headers.
-            // Why not have it iterate over hash header levels? Wouldn't that be easier and cleaner?
+            // Why not have it iterate over hash header levels?  Wouldn't that be easier and cleaner?
             var headerChar = headerLevelToCreate >= 2 ? "-" : "=";
             var len = chunk.selection.length;
             if (len > SETTINGS.lineLength) {

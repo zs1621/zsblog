@@ -1,40 +1,42 @@
-<div class="panel">
-	<div class="header">
-		<ul class= "breadcrumb">关于
-			<li><br/></li>
+<aside id="category" class="widget_category widget">
+	<div class="widget_body">
+		<h1>文章目录</h1>
+		<ul>
+			<% for(var i = 0; i < category.length; i++ ){%>
+				<li><a href="/category/<%= category[i].id %>"><%= category[i].content %></a></li>
+			<%}%>
 		</ul>
-		
 	</div>
-	<div id = "siteinfo" class="inner">
-		<p>TEST_BLOG</p>
-		<p>基于Nodejs expressjs markdown</p>
-	</div>
-</div>
-<div class="panel">
-	<div class="header">
-		<span>文章分类</span>
-	</div>
-	<div class="inner">
-		<ul class="divider">
-			<% for(var i = 0; i < category.length; i++ ) { %>
-			<li><a href="/category/<%= category[i].id%>" ><%= category[i].content %></a>
-			</li>
+</aside>
+<aside id="tag_clound" class="widget_tag_clound widget">
+	<div class="widget_body">
+		<h1>标签</h1>
+		<div class="tagcloud">
+			<% for(var i=0;i<tags.length;i++) {%>
+				<a href="/tag/<%= tags[i]._id %>" title="<%= tags[i].count %>"><%= tags[i].name %>
+				</a>
 			<% } %>
+<<<<<<< HEAD
 		</ul>
 	</div>	
 </div>
 <div class="panel" id="tagarticle">
 	<div class="header">
 		<span>文章标签</span>
+=======
+		</div>
+>>>>>>> c26f6dcd95f5ea1fe78020aa72016a0fa15abdf1
 	</div>
-	<div class="inner">
-		<ul class="tags">
-		<% for(var i=0; i< tags.length; i++) { %>
-			<a href="/tag/<%= tags[i]._id%>" class="tag" tag_id="<%= tags[i]._id %>"> <%= tags[i].name %>
-			</a> 
-		<% } %>
+</aside>
+<aside id="link_list" class="widget_link_list widget">
+	<div class="widget_body">
+		<h1>链接</h1>
+		<ul>
+			<li><a href="http://www.v2ex.com/?r=zs">V2EX</a></li>
+			<li><a href="https://50.116.13.150:1433/info/manual/">VPN</a></li>
 		</ul>
 	</div>
+<<<<<<< HEAD
 </div>
 <div class="panel" id="rhapsodyzs" style="position:static;top:15px">
 	<iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=2&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=2703621882&verifier=e300faf4&dpc=1"></iframe>
@@ -47,3 +49,24 @@
 	distanceToTop:5
 });
 </script>
+=======
+</aside>
+<% if(locals.user) {%>
+	<aside id="admin" class="widget_admin widget">
+		<div class="widget_body">
+			<h1>Admin</h1>
+			<ul>
+				<li>
+					<a href="/admin/article/operate_article">后台管理</a>
+				</li>
+				<li>
+					<a href="/admin/article/create">写文章</a>
+				</li>
+				<li>
+					<a href="/logout">注销</a>
+				</li>
+			</ul>
+		</div>
+	</aside> 
+<%}%>
+>>>>>>> c26f6dcd95f5ea1fe78020aa72016a0fa15abdf1
