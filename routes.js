@@ -30,6 +30,9 @@ module.exports = function(app){
 	app.get('/article/:title',site.article);
 	app.get('/category/:id', site.category);
 	app.get('/tag/:id', site.tag);
+	app.get('/about',site.about);
+	app.get('/archive',site.archive);
+
 
 
 
@@ -63,7 +66,5 @@ module.exports = function(app){
 	// upload image
 	app.post('/upload/image', upload.uploadImage);
 	
-	
-	//error
-	//app.get('/*',site.notfound);
+
 }

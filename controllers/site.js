@@ -21,7 +21,7 @@ exports.index = function(req, res, next){
 	var keyword = req.query.q || '';
 	var limit = 5;
 	var user = req.session.user;
-
+	var title = "舜子"
 	if(Array.isArray(keyword)){
 		keyword = keyword.join(' ');
 	}
@@ -52,7 +52,7 @@ exports.index = function(req, res, next){
 							Category.find({}, function(err, category){
 								if(err) return next(err);
 								var category = category;
-								res.render('index',{
+								res.render('site/article/list',{
 									layout: 'layout',									
 									tags: alltags,
 									article: article,
@@ -62,6 +62,9 @@ exports.index = function(req, res, next){
 									category: category,
 									user: user,
 									keyword: keyword,
+									sign:0,
+									title:title,
+									content:0
 								});
 							});
 						});							
@@ -80,7 +83,7 @@ exports.article = function(req, res, next){
 				.populate('tag')
 				.exec(function(err, articles){
 					if(err) return next(err);
-					articles.visitCount = articles.visitCount + 1  ;
+					articles.visitCount = articles.visitCount + 1;
 					articles.save(function(err){
 						if(err) return next(err);
 					});
@@ -100,6 +103,7 @@ exports.article = function(req, res, next){
 							category: category,
 							title:title,
 							user: user,
+							sign:0,
 							});
 						});
 					});				
@@ -144,7 +148,10 @@ exports.category = function(req, res, next){
 									current_page: page,
 									base:'/category/'+id,
 									name: name,
-									id: id
+									id: id,
+									sign:0,
+									title:name,
+									content:0
 								});
 							});
 						});
@@ -193,18 +200,109 @@ exports.tag = function(req, res, next){
 									current_page: page,
 									base:'/tag/'+ id,
 									name: name,
-									id: id
+									id: id,
+									sign:0,
+									title:name,
+									content:0  
 								});
 							});
 						});
 					});
-
 	});
 }
 
 exports.notfound = function(req, res){
 	res.render('404',{
-		layout: 'layout',
-		title:'NOT FOUND'
+		layout:'layout',
+		title:'NOT FOUND',
+		content:0
 	})
+}
+
+exports.about = function(req,res){
+	Tag.find({}, function(err, all_tags){
+						if(err) return next(err);
+						Category.find({}, function(err, category){
+							if(err) return next(err);
+							return res.render('other/about',{
+							title:'关于我',
+							category:category,
+							tags:all_tags,
+							sign:2,
+							content:3,
+						})
+					})
+	})
+}
+
+
+exports.archive = function(req, res){
+	Tag.find({}, function(err, all_tags){
+						if(err) return next(err);
+						Category.find({}, function(err, category){
+							if(err) return next(err);
+							Article.find({}).select('title publishtime').sort('-publishtime').exec(function(err, articles){
+								if(err) return next(err);
+								var len = articles.length;
+								var articleyear = [];
+								var articlemonth = [];
+								var articletitle = [];
+								var articleList = [];							
+								var c = [];
+								var alm = [];var am = [];var al = [];
+								var n = {};var m = {};
+								for(var i=0;i<len;i++){
+									articleyear.push(articles[i].publishtime.getFullYear());
+									articlemonth.push(articles[i].publishtime.getMonth() + 1);
+								}
+								articleYear = uniqArray(articleyear);
+								articleMonth = uniqArray(articlemonth);
+								lenAy = articleYear.length;
+								lenAm = articleMonth.length;
+								for(var i = 0; i < lenAy; i++){
+									al[i] = {};
+									for(var j = 0; j < lenAm; j++){
+										for(var x = 0,alt = new Array(); x < len ; x++){
+											if(articles[x].publishtime.getFullYear() == articleYear[i] && (articles[x].publishtime.getMonth() + 1) == articleMonth[j]){
+												alt.push(articles[x].title);
+												alm[j] = alt;
+												al[i][articleMonth[j]] = alm[j] ;
+												n[articleYear[i]] = al[i];
+											}
+										}				
+									}
+								}
+								console.log(n);
+								return res.render('other/archive',{
+								title:"文章存档",
+								n:n,
+								category:category,
+								tags:all_tags,
+								sign:1,
+								content:0
+								})
+							})
+						})
+					})
+
+}
+
+var uniqArray = function(arr){
+	var a = [],
+			o = {},
+			i,
+			v,
+			len = arr.length;
+	if(len < 2){
+		return arr;
+	}
+
+	for(i=0;i<len;i++){
+		v = arr[i];
+		if(o[v]!==1){
+			a.push(v);
+			o[v] = 1;
+		}
+	}
+	return a;
 }

@@ -22,6 +22,8 @@ var ArticleSchema = new Schema({
 	tag: [{ type: Schema.Types.ObjectId, ref: 'Tag'}]
 });
 
+
+
 return mongoose.model('Article', ArticleSchema);
 }
 exports.Article = create;

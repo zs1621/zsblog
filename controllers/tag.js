@@ -31,12 +31,6 @@ exports.createNew = function(req, res, next){
 
 		newtag.save(function(err, tag){
 			if(err)  return res.redirect('/admin/tag/createnew');
-			console.log(tag._id);
-			console.log(tag.name);	
-			//var msg = '<li class = "tag" id="tag-'+tag._id+'" style="display: inline-table">'+
-			//					'<span class="tag_selectable" id="'+tag._id+'">'+tag.name+'</span>'+
-			//					'<a class="tag_del" >x</a>'+
-			//					'</li>'
 			res.json({id: tag._id, name: tag.name});
 		})
 }

@@ -55,6 +55,7 @@ exports.login = function(req,res,next){
 	var method = req.method.toLowerCase();
 	if(method == 'get'){
 		res.render('sign/login', {
+			layout:'loginlayout',
 			title:'用户登录',
 			error: req.flash('error').toString(),
 
@@ -84,7 +85,7 @@ exports.login = function(req,res,next){
 
 exports.logout = function(req,res){
 	req.session.destroy();
-	res.redirect('/');
+	return res.redirect('/');
 }
 
 

@@ -1,4 +1,4 @@
-<div id="sidebar">
+<!--div id="sidebar">
 	<%- include ../sidebar %>
 </div>
 <div id="content">
@@ -18,4 +18,15 @@
 			<%- include ../article/list %>
 		</div>
 	</div>	
-</div>
+</div-->
+<header class="archive_title clear">
+	<hgroup>
+		<div class="archive_title_meta">
+			<h2>Archive</h2>
+		</div>
+		<div class="archive_title_name">
+			<h1>Tag Archive:<%= name%></h1>
+		</div>
+	</hgroup>
+</header>
+<%- include ../article/list %>
