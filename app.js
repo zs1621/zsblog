@@ -17,7 +17,7 @@ routes(app);
 
 
 //listen
-var port = process.env.PROT ? process.env.PORT:80
+var port = process.env.PROT ? process.env.PORT:3000;
 	http.createServer(app).listen(port,function(){
 		console.log('server is listening %d ', port);
 

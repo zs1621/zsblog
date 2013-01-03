@@ -26,7 +26,6 @@ exports.index = function(req, res, next){
 		keyword = keyword.join(' ');
 	}
 	keyword = keyword.trim();
-	console.log(keyword);
 	req.session.keyword = keyword;
 	var query = {};
 	if(keyword){
@@ -272,7 +271,6 @@ exports.archive = function(req, res){
 										}				
 									}
 								}
-								console.log(n);
 								return res.render('other/archive',{
 								title:"文章存档",
 								n:n,
