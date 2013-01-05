@@ -27,14 +27,11 @@ exports.uploadImage = function(req, res, next){
 			res.send({ status: 'fobbiden'});
 		}
 		console.log(req.session.user);
-		var upyun = new UPYun('zsblog','rhapsody','zs1261yh');
 		fs.readFile(req.files.userfile.path, function(err, original){
 			if(err) console.log(err);
 			var md5str = md5(original);
 			var filename = '/' + req.session.user._id + '/' + md5(Date.now().toString());
 			upyun.setContentMD5(md5str);
-			upyun.writeFile(filename, original, true, function(err, data){
-				if(err) return console.log(err);
 				console.log(data);
 			})
 			var url = 'http://zsblog.b0.upaiyun.com'+filename;
