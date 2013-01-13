@@ -8,9 +8,11 @@ function article_tran(a_array){
 		a_array[i].content = Showdown.parse(a_array[i].content);
 		var num = a_array[i].content.indexOf('--more--');
 		a_array[i].content = a_array[i].content.slice(a_array[i].content, num);
-		a_array[i].content = a_array[i].content.concat("......");
+		a_array[i].content = a_array[i].content.concat("");
 	}
 }
+
+
 
 // exports.search = function(req, res, next){
 // 	var req.
@@ -36,6 +38,7 @@ exports.index = function(req, res, next){
 	Article
 				.find(query)
 				.populate('tag')
+				.populate('category')
 				.limit(limit)
 				.skip((page-1)*limit)
 				.sort('-publishtime')
@@ -47,10 +50,17 @@ exports.index = function(req, res, next){
 						if(err) return next(err);
 						Article.count({}, function(err, count){
 							if(err) return next(err);
-							var pages = Math.ceil(count/limit);
+							var pages = Math.ceil(article.length/limit);
+							console.log(pages);
 							Category.find({}, function(err, category){
 								if(err) return next(err);
 								var category = category;
+								//判断是否有搜索	
+								if(keyword){
+									keyword = keyword;
+								}else{
+									keyword = 0;
+								}
 								res.render('site/article/list',{
 									layout: 'layout',									
 									tags: alltags,
@@ -101,6 +111,7 @@ exports.article = function(req, res, next){
 							tags: all_tags,
 							category: category,
 							title:title,
+							keyword: 0,
 							user: user,
 							sign:0,
 							});
@@ -148,6 +159,7 @@ exports.category = function(req, res, next){
 									base:'/category/'+id,
 									name: name,
 									id: id,
+									keyword:0,
 									sign:0,
 									title:name,
 									content:0
@@ -201,6 +213,7 @@ exports.tag = function(req, res, next){
 									name: name,
 									id: id,
 									sign:0,
+									keyword:0,
 									title:name,
 									content:0  
 								});
@@ -228,6 +241,7 @@ exports.about = function(req,res){
 							category:category,
 							tags:all_tags,
 							sign:2,
+							keyword:0,
 							content:3,
 						})
 					})

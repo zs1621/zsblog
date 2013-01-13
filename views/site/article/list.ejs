@@ -1,3 +1,16 @@
+<% if(keyword) {%>
+	<header class="archive_title clear">
+		<hgroup>
+			<div class="archive_title_meta">
+				<h2>Archive</h2>
+			</div>
+			<div class="archive_title_name">
+				<h1>Search Achive:<%= keyword%></h1>
+			</div>
+		</hgroup>
+	</header>
+<%}%>
+
 <% for(var i=0;i<article.length;i++) { %>
 <article id="article" class="post clear">
 	<header class="article_header">
@@ -12,12 +25,16 @@
 			<div class="article_post_date">
 				<span class="article_post_date_link"><%= time %></span>
 			</div>
+			<div class="article_post_category">
+				<span>In</span><a href="/article/<%= article[i].category.content %>"> <%= article[i].category.content %></a>
+			</div>
 			<div class="article_post_tag">
 				<% if(article[i].tag.name){ %>
 					<a title="view all articles in <%= article[i].tag.name %>" href="/tag/<%= article[i].tag[j]._id %>"><%= article[i].tag.name %></a>
 				<%} else if(article[i].tag.length > 0){%>
+					<span>About</span>
 					<% for(var j = 0; j < article[i].tag.length; j++) {%>
-						<a class="article_tag_style" title="view all articles in <%= article[i].tag[j].name%>" href="/tag/<%= article[i].tag[j]._id %>">#<%= article[i].tag[j].name %></a>
+						<a class="article_tag_style" title="view all articles in <%= article[i].tag[j].name%>" href="/tag/<%= article[i].tag[j]._id %>"><%= article[i].tag[j].name %></a>
 					<% } %>
 				<% } %>
 			</div>
@@ -25,7 +42,9 @@
 	</header>
 	<div class="article_content">
 		<%- article[i].content %>
+		<p><a class="more-link" href="/article/<%= article[i].title %>">ReadMore »</a></p>
 	</div>
+
 </article>
 <% } %>
 

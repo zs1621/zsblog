@@ -13,7 +13,7 @@
 		<h1>标签</h1>
 		<div class="tagcloud">
 			<% for(var i=0;i<tags.length;i++) {%>
-				<a href="/tag/<%= tags[i]._id %>" title="<%= tags[i].count %>"><%= tags[i].name %>
+				<a href="/tag/<%= tags[i]._id %>" class="tag_have_<%= tags[i].article.length%>" title="<%= tags[i].article.length%> topics"><%= tags[i].name %>
 				</a>
 			<% } %>
 	</div>
@@ -45,3 +45,4 @@
 		</div>
 	</aside> 
 <%}%>
+

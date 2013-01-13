@@ -141,7 +141,7 @@ body{
 	background:none repeat scroll 0 0 #E9E9E9;
 	float:right;
 	position:relative;
-	top 2px;
+	top:2px;
 	width:225px;
 }
 .search-form-holder input{
@@ -150,7 +150,7 @@ body{
 	color: #FFFFFF;
 	font-size: 16px;
 	font-weight: bold;
-	padding: 4px 5px;
+	padding: 5px 4px;
 	vertical-align: middle;
 	width: 191px;
 }
@@ -205,7 +205,9 @@ body{
 	color: #000000;
 	text-decoration:none;
 }
-
+.article_header h1 a:hover{
+	color:#dddddd;
+}
 .article_data {
 	color: #9D9D9D;
 	font-size: 11px;
@@ -219,10 +221,13 @@ body{
 .article_post_tag{
 	padding: 10px 10px 0 0;
 }
+.article_post_category{
+	padding: 10px 10px 0 0;
+}
 
 .article_data a:hover
 {
-	border-color:#000000;
+	border-color:#dddddd;
 	border-bottom: 1px solid #000000;
 }
 .article_content{
@@ -233,13 +238,29 @@ body{
 	width:545px;
 }
 .article_content img{
-	float:left;
-	display:inline;
+	float: left;
+	display: inline;
 	margin-right: 15px;
 	margin-top: 4px;
 }
 .admin_edit{
-	padding-top:10px;
+	padding-top: 10px;
+}
+
+.more-link{
+	font-family: "Times New Roman", Times, serif;
+	font-size: 11px;
+	display: inline-block;
+	padding-top: 20px;
+}
+
+.article_content a {
+	text-decoration: none;
+	color:#87CEBB;
+}
+.article_content a:hover{
+	color: red;
+	border-bottom: 1px solid #000;
 }
 /*----------cotent-archive-head------------*/
 .archive_title{
@@ -360,7 +381,7 @@ body{
 
 .tagcloud{
 	/*white-space:pre-wrap;*/
-  word-break:break-all;
+  /*word-break:break-all;*/
 }
 
 /*-------------------------------------footer-----------------------------*/
@@ -373,10 +394,10 @@ body{
 	margin: -165px auto 0;	
 }
 #page_footer p{
-	color:#dddddd;
+	color:#666666;
 }
 #page_footer a{
-	color:#dddddd;
+	color:#76B24C;
 	text-decoration: none;
 }
 #page_footer a:hover{
