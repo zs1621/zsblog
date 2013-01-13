@@ -327,7 +327,7 @@ body{
 	background: #d0d0d0;
 }
 /*-----------------------comment----------------------------*/
-.respond:after{
+/*.respond:after{
 	clear:both;
 	content: '.';
 	display: block;
@@ -339,7 +339,8 @@ body{
 	margin: 0 0 0px 0px !important;
 	padding-bottom: 195px;
 	overflow: visible !important;
-}
+}*/
+
 /*-----------sidebar---------------------------------------------------------*/
 .sidebar{
 	float: right;
@@ -386,12 +387,15 @@ body{
 
 /*-------------------------------------footer-----------------------------*/
 #page_footer{
-	border-top: 1px solid #E9E9E9;
+	/*border-top: 1px solid #E9E9E9;*/
 	width: 945px;
-	position:relative;
+	/*position:relative;
 	height: 101px;
 	padding-top: 23px;
-	margin: -165px auto 0;	
+	float:right;
+	margin: -165px auto 0;*/
+	margin:0 auto;
+	text-align: center;
 }
 #page_footer p{
 	color:#666666;
@@ -404,5 +408,18 @@ body{
 	color: #000000;
 }
 
+/*---------------------------other-about-----------------*/
+.about{
+	padding-bottom: 400px;
+}
 
+.about a{
+	color: #000;
+	text-decoration: none;
+	font-size: 11px;
+}
 
+.about a:hover{
+	border-bottom: 1px solid #000;
+	color: #aaaaaa;
+}

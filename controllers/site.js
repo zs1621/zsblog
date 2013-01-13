@@ -50,8 +50,7 @@ exports.index = function(req, res, next){
 						if(err) return next(err);
 						Article.count({}, function(err, count){
 							if(err) return next(err);
-							var pages = Math.ceil(article.length/limit);
-							console.log(pages);
+							var pages = Math.ceil(article.length/limit) + 1;
 							Category.find({}, function(err, category){
 								if(err) return next(err);
 								var category = category;
