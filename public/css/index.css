@@ -2,10 +2,10 @@
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,t{
 	background: transparent;
 	border: 0;
-	margin: 0;
+/*	margin: 0;*/
 	font-size: 100%;
-	outline: 0;
-	padding: 0;
+/*	outline: 0;*/
+/*	padding: 0;*/
 	vertical-align: baseline;
 } 
 body {
@@ -158,9 +158,9 @@ body{
 	background:#ffffff;
 	cursor: pointer;
 	height: 24.2px;
-	margin: 0 0 0 -30px;
+	margin: 0 0 0 -48px;
 	border: 1px solid #FFFFFF;
-	vertical-align: middle;
+	vertical-align: bottom;
 	width: 50px;
 }
 /*----------------------------cotent-------------------------------*/
@@ -375,6 +375,9 @@ body{
 	line-height: 1.5;
 	padding: 4px 0 4px 20px;
 	list-style: square inside none;
+	margin: 0;
+	outline: 0;
+	padding: 0;
 }
 .widget_body li:hover{
 	background:#f9f9f9;
