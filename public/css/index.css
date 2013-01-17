@@ -415,9 +415,6 @@ body{
 	line-height: 1.5;
 	padding: 4px 0 4px 20px;
 	list-style: square inside none;
-	margin: 0;
-	outline: 0;
-	padding: 0;
 }
 
 .widget_body li:hover {
