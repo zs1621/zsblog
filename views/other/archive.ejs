@@ -10,7 +10,7 @@
 				<p><%= year %>年</p>
 				<div class="divline"></div>
 				<% for(var month in n[year]) {%>
-					<li class="article_month">
+					<div  class="article_month">
 						<p>
 							<%=month %>月(<%= n[year][month].length%>篇)
 						</p>
@@ -19,7 +19,7 @@
 							<li ><a href="/article/<%= n[year][month][title] %>"><%= n[year][month][title] %></a></li>
 					  <%}%>						
 						</ul>
-					</li>
+					</div>
 				<%}%>
 			</ul>
 		<%}%>
