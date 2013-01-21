@@ -89,6 +89,7 @@ exports.article = function(req, res, next){
 	Article
 				.findOne({title: title})
 				.populate('tag')
+				.populate('category')
 				.exec(function(err, articles){
 					if(err) return next(err);
 					articles.visitCount = articles.visitCount + 1;
@@ -127,6 +128,7 @@ exports.category = function(req, res, next){
 	Article
 				.find({category: id})
 				.populate('tag')
+				.populate('category')
 				.limit(limit)
 				.skip((page-1)*limit)
 				.sort('-publishtime')
@@ -192,6 +194,7 @@ exports.tag = function(req, res, next){
 					.limit(limit)
 					.skip((page-1)*limit)
 					.populate('tag')
+					.populate('category')
 					.sort('-publishtime')
 					.exec(function(err, article){
 						if(err) return next(err);
@@ -253,7 +256,7 @@ exports.archive = function(req, res){
 						if(err) return next(err);
 						Category.find({}, function(err, category){
 							if(err) return next(err);
-							Article.find({}).select('title publishtime').sort('-publishtime').exec(function(err, articles){
+							Article.find({}).populate('category').select('title publishtime').sort('-publishtime').exec(function(err, articles){
 								if(err) return next(err);
 								var len = articles.length;
 								var articleyear = [];

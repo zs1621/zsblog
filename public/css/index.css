@@ -271,8 +271,11 @@ body{
 }
 
 .article_content img{
-	float: left;
-	display: inline;
+	/*float: left;*/
+/*	display: inline;*/
+	border: 1px solid #DDDDDD;
+	border-radius: 5px;
+	box-shadow: 1px 1px 4px rgba(150, 150, 150, 0.3)
 	margin-right: 15px;
 	margin-top: 4px;
 }
