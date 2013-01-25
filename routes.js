@@ -62,7 +62,7 @@ module.exports = function(app){
 	app.get('/admin/article/:id/delete', article.delete);
 
 	//demo show
-	app.get('/demo/slide',demo.slide);
+	app.get('/demo/:static',demo.show);
 	// upload image
 	app.post('/upload/image', upload.uploadImage);
 	

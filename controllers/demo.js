@@ -1,3 +1,4 @@
-exports.slide = function(req,res,next){
-	res.render('site/slideshow.ejs',{layout:false})
+exports.show = function (req,res,next) {
+	var pathName = req.params.static;
+	res.render('site/demo/'+ pathName,{layout:false})
 }
